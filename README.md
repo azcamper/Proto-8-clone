@@ -1,4 +1,4 @@
--## Proto-8-clone
+### Proto-8-clone
 #### *A build up of a proto-8 with generic panel*
 
 <a href="https://raw.githubusercontent.com/azcamper/Proto-8-clone/Documentation/RandySynthPhoto1.jpg"><img src="https://raw.githubusercontent.com/azcamper/Proto-8-clone/Documentation/RandySynthPhoto1.jpg" align="center" height="240" width="320" ></a>
