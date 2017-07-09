@@ -7,7 +7,9 @@
 
 #### Overview
 
-Starting from a panel connected to the hardware, this repo shows the build up of software that results in a simple midi synth.  At start, the hardware passes the hardware test example but otherwise no software is written.
+This repository is my version of the Proto-8_Generic_Synth as outlined and shown at repository "marshalltaylorSFE/Proto-8_Generic_Synth"
+
+Starting from my design of a generic panel connected to the hardware, this repo shows the build up of software that results in a simple midi synth.  At start, the hardware passes the hardware test example but otherwise no software is written.
  
 #### Milestones
  
