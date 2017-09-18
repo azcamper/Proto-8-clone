@@ -18,9 +18,11 @@
 uint32_t maxTimer = 60000000;
 uint32_t maxInterval = 2000000;
 
+
 #define LEDPIN 13
 #include "timerModule32.h"
 #include "stdint.h"
+#include "PanelComponents.h"
 
 IntervalTimer myTimer; //Interrupt for Teensy
 
@@ -30,6 +32,14 @@ IntervalTimer myTimer; //Interrupt for Teensy
 //**Current list of timers********************//
 TimerClass32 debugTimer( 1000000 ); //1 second
 TimerClass32 serialTimer( 500000 ); // 0.5 seconds
+TimerClass32 knobTimer( 5000 ); //5ms
+
+
+//components
+
+//Simple8BitKnob myKnob;
+Windowed10BitKnob myKnob;
+
 
 //Note on TimerClass-
 //Change with usTimerA.setInterval( <the new interval> );
@@ -53,6 +63,7 @@ void setup()
 
   // initialize IntervalTimer
   myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
+  myKnob.setHardware( new ArduinoAnalogIn( A2 ));
 
 }
 
@@ -65,25 +76,33 @@ void loop()
 		//msTimerA.update(usTicks);
 		debugTimer.update(usTicks);
 		serialTimer.update(usTicks);
-
+        knobTimer.update(usTicks);
 		
 		//Done?  Lock it back up
 		usTicksLocked = 1;
 	}  //The ISR will unlock.
 
 	//**Copy to make a new timer******************//  
-	if(serialTimer.flagStatus() == PENDING)
-	{
-	   //User code
-	   Serial.println("Hello Randy");
-	}
 	
 	if(debugTimer.flagStatus() == PENDING)
 	{
 		//User code
 		digitalWrite( LEDPIN, digitalRead( LEDPIN ) ^ 0x01 );
 	}
-
+	if(serialTimer.flagStatus() == PENDING)
+	{
+	   //User code
+	   Serial.println("Hello Randy");
+	}
+    if(knobTimer.flagStatus() == PENDING)
+    {
+        //User code
+        myKnob.freshen(5);
+ 		  if(myKnob.serviceChanged())
+		  {
+			Serial.println(myKnob.getState());
+		  }
+    }
 }
 
 void serviceUS(void)
