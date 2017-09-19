@@ -5,8 +5,11 @@
 
 KnobPanel::KnobPanel( void )
 {
-	myKnob.setHardware(new ArduinoAnalogIn( A1 ));
-	add( &myKnob );
+	myKnob1.setHardware(new ArduinoAnalogIn( A2 ));
+	add( &myKnob1 );
+	
+	myKnob2.setHardware(new ArduinoAnalogIn( A3 ));
+	add( &myKnob2 );
 	
 	state = PInit;
 }
@@ -30,11 +33,17 @@ void KnobPanel::tickStateMachine( int msTicksDelta )
 		nextState = PRun;
 		break;
 	case PRun:
-		if( myKnob.serviceChanged() )
+		if( myKnob1.serviceChanged() )
 		{
-			Serial.print("knob: ");
-			Serial.println(myKnob.getState());
+			Serial.println("knob 1");
+			Serial.println(myKnob1.getState());
 		}
+		if( myKnob2.serviceChanged() )
+		{
+			Serial.println("knob 2");
+			Serial.println(myKnob2.getState());
+		}
+	
 		break;
 	default:
 		nextState = PInit;
