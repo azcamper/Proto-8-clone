@@ -10,7 +10,6 @@
 //  The timerModule32 only works on teensy / fast processors.  It works the same
 //  but keeps track of everything in us counts.
 
-
 //Not used by this sketch but dependant on one 
 #include "Wire.h"
 
@@ -23,6 +22,9 @@ uint32_t maxInterval = 2000000;
 #include "timerModule32.h"
 #include "stdint.h"
 #include "PanelComponents.h"
+#include "KnobPanel.h"  // added in Lesson 3
+
+KnobPanel myCustomPanel; // added in Lesson 3
 
 IntervalTimer myTimer; //Interrupt for Teensy
 
@@ -37,13 +39,12 @@ TimerClass32 knobTimer( 5000 ); //5ms
 
 //components
 
-//Simple8BitKnob myKnob;
-Windowed10BitKnob myKnob;
+//Simple8BitKnob myKnob;  // used in Lesson 2
+//Windowed10BitKnob myKnob; // used in Lesson 2
 
 
 //Note on TimerClass-
 //Change with usTimerA.setInterval( <the new interval> );
-
 
 uint32_t usTicks = 0;
 
@@ -56,14 +57,18 @@ uint32_t usTicks = 0;
 //    of the interrupt
 
 uint8_t usTicksLocked = 1; //start locked out
+
 void setup()
 {
   Serial.begin(9600);
   pinMode(LEDPIN, OUTPUT);
+  
+  myCustomPanel.reset();  // added in Lesson 3
+
 
   // initialize IntervalTimer
   myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
-  myKnob.setHardware( new ArduinoAnalogIn( A2 ));
+//  myKnob.setHardware( new ArduinoAnalogIn( A2 ));  // used in Lesson 2
 
 }
 
@@ -96,12 +101,16 @@ void loop()
 	}
     if(knobTimer.flagStatus() == PENDING)
     {
+		//Tick the machine  added in Lesson 3
+     	myCustomPanel.tickStateMachine(5);
+
         //User code
-        myKnob.freshen(5);
+ /*       myKnob.freshen(5);  // Used in Lesson 2
  		  if(myKnob.serviceChanged())
 		  {
 			Serial.println(myKnob.getState());
 		  }
+*/		  
     }
 }
 
