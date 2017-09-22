@@ -23,6 +23,7 @@ uint32_t maxInterval = 2000000;
 #include "stdint.h"
 #include "PanelComponents.h"
 #include "KnobPanel.h"  // added in Lesson 3
+#include "proto-8Hardware.h"  // added in Lesson 4
 
 KnobPanel myCustomPanel; // added in Lesson 3
 
@@ -32,15 +33,25 @@ IntervalTimer myTimer; //Interrupt for Teensy
 //TimerClass32 usTimerA( 20000 ); //20 ms
 
 //**Current list of timers********************//
+
 TimerClass32 debugTimer( 1000000 ); //1 second
 TimerClass32 serialTimer( 500000 ); // 0.5 seconds
-TimerClass32 knobTimer( 5000 ); //5ms
+TimerClass32 panelTimer( 5000 ); //5ms
 
+// added in Lesson 4
+TimerClass32 LEDsTimer( 20 ); // 20 uS
+TimerClass32 switchesTimer( 500 ); // 500 uS
+TimerClass32 knobsTimer( 500 ); // 500 uS
 
 //components
 
 //Simple8BitKnob myKnob;  // used in Lesson 2
 //Windowed10BitKnob myKnob; // used in Lesson 2
+
+// added in Lesson 4
+LEDShiftRegister LEDs;
+AnalogMuxTree knobs;
+SwitchMatrix switches;
 
 
 //Note on TimerClass-
@@ -65,6 +76,11 @@ void setup()
   
   myCustomPanel.reset();  // added in Lesson 3
 
+// added in Lesson 4
+LEDs.begin();
+knobs.begin();
+switches.begin();
+
 
   // initialize IntervalTimer
   myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
@@ -79,9 +95,15 @@ void loop()
 	{
 		//**Copy to make a new timer******************//  
 		//msTimerA.update(usTicks);
+		/*
 		debugTimer.update(usTicks);
 		serialTimer.update(usTicks);
         knobTimer.update(usTicks);
+        // added in Lesson 4
+		LEDsTimer.update(usTicks);
+		switchesTimer.update(usTicks);
+		knobsTimer.update(usTicks);
+		*/
 		
 		//Done?  Lock it back up
 		usTicksLocked = 1;
@@ -99,10 +121,25 @@ void loop()
 	   //User code
 	   Serial.println("Hello Randy");
 	}
-    if(knobTimer.flagStatus() == PENDING)
+    if(panelTimer.flagStatus() == PENDING)
     {
 		//Tick the machine  added in Lesson 3
      	myCustomPanel.tickStateMachine(5);
+
+	if(LEDsTimer.flagStatus() == PENDING)
+    {
+		LEDs.send();
+    }
+
+    if(switchesTimer.flagStatus() == PENDING)
+    {
+		switches.scan();
+    }
+
+    if(knobsTimer.flagStatus() == PENDING)
+    {
+		knobs.scan();
+    }
 
         //User code
  /*       myKnob.freshen(5);  // Used in Lesson 2
