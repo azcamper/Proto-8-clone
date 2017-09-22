@@ -74,16 +74,16 @@ void setup()
   Serial.begin(9600);
   pinMode(LEDPIN, OUTPUT);
   
+  // initialize IntervalTimer
+  myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
   myCustomPanel.reset();  // added in Lesson 3
 
 // added in Lesson 4
-LEDs.begin();
-knobs.begin();
-switches.begin();
+  LEDs.begin();
+  knobs.begin();
+  switches.begin();
 
 
-  // initialize IntervalTimer
-  myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
 //  myKnob.setHardware( new ArduinoAnalogIn( A2 ));  // used in Lesson 2
 
 }
@@ -95,15 +95,15 @@ void loop()
 	{
 		//**Copy to make a new timer******************//  
 		//msTimerA.update(usTicks);
-		/*
+		
 		debugTimer.update(usTicks);
 		serialTimer.update(usTicks);
-        knobTimer.update(usTicks);
+//        knobTimer.update(usTicks);
         // added in Lesson 4
+		panelTimer.update(usTicks);
 		LEDsTimer.update(usTicks);
 		switchesTimer.update(usTicks);
 		knobsTimer.update(usTicks);
-		*/
 		
 		//Done?  Lock it back up
 		usTicksLocked = 1;
@@ -124,8 +124,10 @@ void loop()
     if(panelTimer.flagStatus() == PENDING)
     {
 		//Tick the machine  added in Lesson 3
+      Serial.println("panel timer pending");
      	myCustomPanel.tickStateMachine(5);
-
+    }
+    
 	if(LEDsTimer.flagStatus() == PENDING)
     {
 		LEDs.send();
@@ -142,13 +144,13 @@ void loop()
     }
 
         //User code
- /*       myKnob.freshen(5);  // Used in Lesson 2
+/*    myKnob.freshen(5);  // Used in Lesson 2
  		  if(myKnob.serviceChanged())
 		  {
 			Serial.println(myKnob.getState());
 		  }
 */		  
-    }
+    
 }
 
 void serviceUS(void)

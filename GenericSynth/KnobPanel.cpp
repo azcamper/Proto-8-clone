@@ -44,8 +44,10 @@ void KnobPanel::reset( void )
 
 void KnobPanel::tickStateMachine( int msTicksDelta )
 {
+    Serial.println("KnobPanel-1");
 	freshenComponents( msTicksDelta );
-	
+    Serial.println("KnobPanel-2");
+
 	//***** PROCESS THE LOGIC *****//
 	//Now do the states.
 	PStates nextState = state;
