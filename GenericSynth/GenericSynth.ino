@@ -124,7 +124,6 @@ void loop()
     if(panelTimer.flagStatus() == PENDING)
     {
 		//Tick the machine  added in Lesson 3
-      Serial.println("panel timer pending");
      	myCustomPanel.tickStateMachine(5);
     }
     
