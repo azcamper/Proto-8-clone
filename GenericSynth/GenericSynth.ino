@@ -22,10 +22,10 @@ uint32_t maxInterval = 2000000;
 #include "timerModule32.h"
 #include "stdint.h"
 #include "PanelComponents.h"
-#include "KnobPanel.h"  // added in Lesson 3
-#include "proto-8Hardware.h"  // added in Lesson 4
+#include "KnobPanel.h"
+#include "proto-8Hardware.h"
 
-KnobPanel myCustomPanel; // added in Lesson 3
+KnobPanel myCustomPanel;
 
 IntervalTimer myTimer; //Interrupt for Teensy
 
@@ -38,17 +38,13 @@ TimerClass32 debugTimer( 1000000 ); //1 second
 TimerClass32 serialTimer( 500000 ); // 0.5 seconds
 TimerClass32 panelTimer( 5000 ); //5ms
 
-// added in Lesson 4
+
 TimerClass32 LEDsTimer( 20 ); // 20 uS
 TimerClass32 switchesTimer( 500 ); // 500 uS
 TimerClass32 knobsTimer( 500 ); // 500 uS
 
 //components
 
-//Simple8BitKnob myKnob;  // used in Lesson 2
-//Windowed10BitKnob myKnob; // used in Lesson 2
-
-// added in Lesson 4
 LEDShiftRegister LEDs;
 AnalogMuxTree knobs;
 SwitchMatrix switches;
@@ -76,15 +72,11 @@ void setup()
   
   // initialize IntervalTimer
   myTimer.begin(serviceUS, 1);  // serviceMS to run every 0.000001 seconds
-  myCustomPanel.reset();  // added in Lesson 3
+  myCustomPanel.reset();
 
-// added in Lesson 4
   LEDs.begin();
   knobs.begin();
   switches.begin();
-
-
-//  myKnob.setHardware( new ArduinoAnalogIn( A2 ));  // used in Lesson 2
 
 }
 
@@ -98,8 +90,6 @@ void loop()
 		
 		debugTimer.update(usTicks);
 		serialTimer.update(usTicks);
-//        knobTimer.update(usTicks);
-        // added in Lesson 4
 		panelTimer.update(usTicks);
 		LEDsTimer.update(usTicks);
 		switchesTimer.update(usTicks);
@@ -141,15 +131,7 @@ void loop()
     {
 		knobs.scan();
     }
-
-        //User code
-/*    myKnob.freshen(5);  // Used in Lesson 2
- 		  if(myKnob.serviceChanged())
-		  {
-			Serial.println(myKnob.getState());
-		  }
-*/		  
-    
+   
 }
 
 void serviceUS(void)
@@ -158,7 +140,6 @@ void serviceUS(void)
   if(usTicks >= ( maxTimer + maxInterval ))
   {
     returnVar = usTicks - maxTimer;
-
   }
   else
   {

@@ -7,13 +7,6 @@
 
 KnobPanel::KnobPanel( void )
 {
-// removed and replaced in lesson 4
-/*	myKnob1.setHardware(new ArduinoAnalogIn( A2 ));
-	add( &myKnob1 );
-	
-	myKnob2.setHardware(new ArduinoAnalogIn( A3 ));
-	add( &myKnob2 );
-*/
 //  Knobs
 	
 	A1Knob.setHardware(new Proto8AnalogIn( 1 ));
@@ -114,6 +107,24 @@ KnobPanel::KnobPanel( void )
 	add( &C6Button );
 	add( &C7Button );
 	add( &C8Button );
+
+	D1Button.setHardware(new Proto8DigitalIn( 1,3 ), 0);
+	D2Button.setHardware(new Proto8DigitalIn( 2,3 ), 0);
+	D3Button.setHardware(new Proto8DigitalIn( 3,3 ), 0);
+	D4Button.setHardware(new Proto8DigitalIn( 4,3 ), 0);
+	D5Button.setHardware(new Proto8DigitalIn( 5,3 ), 0);
+	D6Button.setHardware(new Proto8DigitalIn( 6,3 ), 0);
+	D7Button.setHardware(new Proto8DigitalIn( 7,3 ), 0);
+	D8Button.setHardware(new Proto8DigitalIn( 8,3 ), 0);
+
+	add( &D1Button );
+	add( &D2Button );
+	add( &D3Button );
+	add( &D4Button );
+	add( &D5Button );
+	add( &D6Button );
+	add( &D7Button );
+	add( &D8Button );
 
    // LEDs
 

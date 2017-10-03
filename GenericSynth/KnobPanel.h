@@ -23,26 +23,26 @@ public:
 	
 private:
 	//Internal Panel Components
-	Windowed10BitKnob A1Knob;
-	Windowed10BitKnob A2Knob;
-	Windowed10BitKnob A3Knob;
-	Windowed10BitKnob A4Knob;
-	Windowed10BitKnob A5Knob;
-	Windowed10BitKnob A6Knob;
-	Windowed10BitKnob A7Knob;
-	Windowed10BitKnob A8Knob;
+	Simple10BitKnob A1Knob;
+	Simple10BitKnob A2Knob;
+	Simple10BitKnob A3Knob;
+	Simple10BitKnob A4Knob;
+	Simple10BitKnob A5Knob;
+	Simple10BitKnob A6Knob;
+	Simple10BitKnob A7Knob;
+	Simple10BitKnob A8Knob;
 	
-	Windowed10BitKnob B1Knob;
-	Windowed10BitKnob B2Knob;
-	Windowed10BitKnob B3Knob;
-	Windowed10BitKnob B4Knob;
-	Windowed10BitKnob B5Knob;
+	Simple10BitKnob B1Knob;
+	Simple10BitKnob B2Knob;
+	Simple10BitKnob B3Knob;
+	Simple10BitKnob B4Knob;
+	Simple10BitKnob B5Knob;
 	
-	Windowed10BitKnob C1Knob;
-	Windowed10BitKnob C2Knob;
-	Windowed10BitKnob C3Knob;
-	Windowed10BitKnob C4Knob;
-	Windowed10BitKnob C5Knob;
+	Simple10BitKnob C1Knob;
+	Simple10BitKnob C2Knob;
+	Simple10BitKnob C3Knob;
+	Simple10BitKnob C4Knob;
+	Simple10BitKnob C5Knob;
 	
 	Button A1Button;
 	Button A2Button;
@@ -70,6 +70,15 @@ private:
 	Button C6Button;
 	Button C7Button;
 	Button C8Button;
+
+	Button D1Button;
+	Button D2Button;
+	Button D3Button;
+	Button D4Button;
+	Button D5Button;
+	Button D6Button;
+	Button D7Button;
+	Button D8Button;
 
 
 	Led ALed1;
