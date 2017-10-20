@@ -5,6 +5,12 @@
 #include "proto-8PanelComponents.h"
 #include "proto-8HardwareInterfaces.h"
 
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
 extern AudioControlSGTL5000 sgtl5000_1;
 
 KnobPanel::KnobPanel( void )
@@ -210,7 +216,7 @@ void KnobPanel::tickStateMachine( int msTicksDelta )
 		{
 			Serial.print("knob A-1: ");
 			Serial.println(A1Knob.getState());
-			sgtl5000_1.volume((float)A8Knob.getState()/1024);
+			sgtl5000_1.volume((float)A1Knob.getState()/1024);
 		}
 
 		if( B1Knob.serviceChanged() )
