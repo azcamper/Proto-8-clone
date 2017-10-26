@@ -1,6 +1,6 @@
 //Header
-#ifndef KNOBPANEL_H_INCLUDED
-#define KNOBPANEL_H_INCLUDED
+#ifndef MMCPANEL_H_INCLUDED
+#define MMCPANEL_H_INCLUDED
 
 #include "Panel.h"
 #include "PanelComponents.h"
@@ -14,10 +14,10 @@ enum PStates
 	PRun,
 };
 
-class KnobPanel : public Panel
+class mmCPanel : public Panel
 {
 public:
-	KnobPanel( void );
+	mmCPanel( void );
 	void reset( void );
 	void tickStateMachine( int msTicksDelta );
 	
@@ -54,7 +54,7 @@ private:
 	Simple10BitKnob D6Knob;
  
 	Simple10BitKnob Ext1;
-    Simple10BitKnob Ext2;
+  Simple10BitKnob Ext2;
   
   Button A1Button;
 	Button A2Button;
@@ -142,6 +142,7 @@ private:
 	Led CLed13;
 	Led CLed14;
 	Led CLed15;
+public:	
 	Led CLed16;
 
 	//State machine stuff  

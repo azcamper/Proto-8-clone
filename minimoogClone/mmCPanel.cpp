@@ -1,4 +1,4 @@
-#include "KnobPanel.h"
+#include "mmCPanel.h"
 #include "panelComponents.h"
 #include "HardwareInterfaces.h"
 #include <Arduino.h>
@@ -13,7 +13,7 @@
 
 extern AudioControlSGTL5000 sgtl5000_1;
 
-KnobPanel::KnobPanel( void )
+mmCPanel::mmCPanel( void )
 {
 //  Knobs
 	
@@ -265,13 +265,13 @@ KnobPanel::KnobPanel( void )
 	state = PInit;
 }
 
-void KnobPanel::reset( void )
+void mmCPanel::reset( void )
 {
 	state = PInit;
 	
 }
 
-void KnobPanel::tickStateMachine( int msTicksDelta )
+void mmCPanel::tickStateMachine( int msTicksDelta )
 {
 	freshenComponents( msTicksDelta );
 

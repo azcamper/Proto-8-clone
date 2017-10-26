@@ -20,9 +20,10 @@ uint32_t maxInterval = 2000000;
 #include "timerModule32.h"
 #include "stdint.h"
 #include "PanelComponents.h"
-#include "KnobPanel.h"
+#include "mmCPanel.h"
 #include "proto-8Hardware.h"
 #include "HardwareInterfaces.h"
+//#include "P8Interface.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -39,7 +40,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=453,444
 // GUItool: end automatically generated code
 
 
-KnobPanel myCustomPanel;
+mmCPanel myCustomPanel;
 
 IntervalTimer myTimer; //Interrupt for Teensy
 
@@ -57,6 +58,13 @@ TimerClass32 panelTimer( 5000 ); //5ms
 TimerClass32 LEDsTimer( 20 ); // 20 uS
 TimerClass32 switchesTimer( 500 ); // 500 uS
 TimerClass32 knobsTimer( 500 ); // 500 uS
+//**Panel State Machine***********************//
+
+
+volatile int32_t pUTStartTime = 0;
+volatile int32_t pUTLastTime = 0;
+volatile int32_t pUTStopTime = 0;
+volatile int32_t pUTLength = 0;
 
 // MIDI things
 #include <MIDI.h>
@@ -83,6 +91,32 @@ uint32_t usTicks = 0;
 //    of the interrupt
 
 uint8_t usTicksLocked = 1; //start locked out
+
+void handleNoteOn(byte channel, byte pitch, byte velocity) 
+{ 
+	Serial.print("Note On :"); 
+	Serial.print("0x"); 
+	Serial.print(channel, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(pitch, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(velocity, HEX); 
+	Serial.print("\n"); 
+	myCustomPanel.CLed16.setState(LEDON);
+} 
+
+void handleNoteOff(byte channel, byte pitch, byte velocity) 
+{ 
+	Serial.print("Note Off:"); 
+	Serial.print("0x"); 
+	Serial.print(channel, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(pitch, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(velocity, HEX); 
+	Serial.print("\n");
+  myCustomPanel.CLed16.setState(LEDOFF);	
+} 
 
 void setup()
 {
@@ -188,28 +222,3 @@ void serviceUS(void)
   usTicksLocked = 0;  //unlock
 }
 
-void handleNoteOn(byte channel, byte pitch, byte velocity) 
-{ 
-	Serial.print("Note On :"); 
-	Serial.print("0x"); 
-	Serial.print(channel, HEX); 
-	Serial.print(" 0x"); 
-	Serial.print(pitch, HEX); 
-	Serial.print(" 0x"); 
-	Serial.print(velocity, HEX); 
-	Serial.print("\n"); 
-	CLed16.setState(LEDON);
-} 
-
-void handleNoteOff(byte channel, byte pitch, byte velocity) 
-{ 
-	Serial.print("Note Off:"); 
-	Serial.print("0x"); 
-	Serial.print(channel, HEX); 
-	Serial.print(" 0x"); 
-	Serial.print(pitch, HEX); 
-	Serial.print(" 0x"); 
-	Serial.print(velocity, HEX); 
-	Serial.print("\n");
-	CLed16.setState(LEDOFF);	
-} 

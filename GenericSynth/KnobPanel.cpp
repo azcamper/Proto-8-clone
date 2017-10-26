@@ -5,6 +5,14 @@
 #include "proto-8PanelComponents.h"
 #include "proto-8HardwareInterfaces.h"
 
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+extern AudioControlSGTL5000 sgtl5000_1;
+
 KnobPanel::KnobPanel( void )
 {
 //  Knobs
@@ -32,25 +40,49 @@ KnobPanel::KnobPanel( void )
 	B3Knob.setHardware(new Proto8AnalogIn( 11 ));
 	B4Knob.setHardware(new Proto8AnalogIn( 12 ));
 	B5Knob.setHardware(new Proto8AnalogIn( 13 ));
+	B6Knob.setHardware(new Proto8AnalogIn( 14 ));
 	
 	add( &B1Knob );
 	add( &B2Knob );
 	add( &B3Knob );
 	add( &B4Knob );
 	add( &B5Knob );
+	add( &B6Knob );
 
 	C1Knob.setHardware(new Proto8AnalogIn( 17 ));
 	C2Knob.setHardware(new Proto8AnalogIn( 18 ));
 	C3Knob.setHardware(new Proto8AnalogIn( 19 ));
 	C4Knob.setHardware(new Proto8AnalogIn( 20 ));
 	C5Knob.setHardware(new Proto8AnalogIn( 21 ));
+	C6Knob.setHardware(new Proto8AnalogIn( 22 ));
 	
 	add( &C1Knob );
 	add( &C2Knob );
 	add( &C3Knob );
 	add( &C4Knob );
 	add( &C5Knob );
+	add( &C6Knob );
 
+	D1Knob.setHardware(new Proto8AnalogIn( 25 ));
+	D2Knob.setHardware(new Proto8AnalogIn( 26 ));
+	D3Knob.setHardware(new Proto8AnalogIn( 27 ));
+	D4Knob.setHardware(new Proto8AnalogIn( 28 ));
+	D5Knob.setHardware(new Proto8AnalogIn( 29 ));
+	D6Knob.setHardware(new Proto8AnalogIn( 30 ));
+	
+	add( &D1Knob );
+	add( &D2Knob );
+	add( &D3Knob );
+	add( &D4Knob );
+	add( &D5Knob );
+	add( &D6Knob );
+	
+	Ext1.setHardware(new Proto8AnalogIn( 31 ));
+	Ext2.setHardware(new Proto8AnalogIn( 32 ));
+	
+	add( &Ext1 );
+	add( &Ext2 );
+	
 	// Buttons
 	
 	A1Button.setHardware(new Proto8DigitalIn( 1,1 ), 0);
@@ -136,6 +168,14 @@ KnobPanel::KnobPanel( void )
 	ALed6.setHardware(new Proto8DigitalOut( 6 ), 0);
 	ALed7.setHardware(new Proto8DigitalOut( 7 ), 0);
 	ALed8.setHardware(new Proto8DigitalOut( 8 ), 0);
+	ALed9.setHardware(new Proto8DigitalOut( 9 ), 0);
+	ALed10.setHardware(new Proto8DigitalOut( 10 ), 0);
+	ALed11.setHardware(new Proto8DigitalOut( 11 ), 0);
+	ALed12.setHardware(new Proto8DigitalOut( 12 ), 0);
+	ALed13.setHardware(new Proto8DigitalOut( 13 ), 0);
+	ALed14.setHardware(new Proto8DigitalOut( 14 ), 0);
+	ALed15.setHardware(new Proto8DigitalOut( 15 ), 0);
+	ALed16.setHardware(new Proto8DigitalOut( 16 ), 0);
 
 	add( &ALed1 );
 	add( &ALed2 );
@@ -145,15 +185,31 @@ KnobPanel::KnobPanel( void )
 	add( &ALed6 );
 	add( &ALed7 );
 	add( &ALed8 );
+	add( &ALed9 );
+	add( &ALed10 );
+	add( &ALed11 );
+	add( &ALed12 );
+	add( &ALed13 );
+	add( &ALed14 );
+	add( &ALed15 );
+	add( &ALed16 );
 
-	BLed1.setHardware(new Proto8DigitalOut( 9 ), 0);
-	BLed2.setHardware(new Proto8DigitalOut( 10 ), 0);
-	BLed3.setHardware(new Proto8DigitalOut( 11 ), 0);
-	BLed4.setHardware(new Proto8DigitalOut( 12 ), 0);
-	BLed5.setHardware(new Proto8DigitalOut( 13 ), 0);
-	BLed6.setHardware(new Proto8DigitalOut( 14 ), 0);
-	BLed7.setHardware(new Proto8DigitalOut( 15 ), 0);
-	BLed8.setHardware(new Proto8DigitalOut( 16 ), 0);
+	BLed1.setHardware(new Proto8DigitalOut( 17 ), 0);
+	BLed2.setHardware(new Proto8DigitalOut( 18 ), 0);
+	BLed3.setHardware(new Proto8DigitalOut( 19 ), 0);
+	BLed4.setHardware(new Proto8DigitalOut( 20 ), 0);
+	BLed5.setHardware(new Proto8DigitalOut( 21 ), 0);
+	BLed6.setHardware(new Proto8DigitalOut( 22 ), 0);
+	BLed7.setHardware(new Proto8DigitalOut( 23 ), 0);
+	BLed8.setHardware(new Proto8DigitalOut( 24 ), 0);
+	BLed9.setHardware(new Proto8DigitalOut( 25 ), 0);
+	BLed10.setHardware(new Proto8DigitalOut( 26 ), 0);
+	BLed11.setHardware(new Proto8DigitalOut( 27 ), 0);
+	BLed12.setHardware(new Proto8DigitalOut( 28 ), 0);
+	BLed13.setHardware(new Proto8DigitalOut( 29 ), 0);
+	BLed14.setHardware(new Proto8DigitalOut( 30 ), 0);
+	BLed15.setHardware(new Proto8DigitalOut( 31 ), 0);
+	BLed16.setHardware(new Proto8DigitalOut( 32 ), 0);
 
 	add( &BLed1 );
 	add( &BLed2 );
@@ -163,15 +219,31 @@ KnobPanel::KnobPanel( void )
 	add( &BLed6 );
 	add( &BLed7 );
 	add( &BLed8 );
+	add( &BLed9 );
+	add( &BLed10 );
+	add( &BLed11 );
+	add( &BLed12 );
+	add( &BLed13 );
+	add( &BLed14 );
+	add( &BLed15 );
+	add( &BLed16 );
 	
-	CLed1.setHardware(new Proto8DigitalOut( 48 ), 0);
-	CLed2.setHardware(new Proto8DigitalOut( 49 ), 0);
-	CLed3.setHardware(new Proto8DigitalOut( 50 ), 0);
-	CLed4.setHardware(new Proto8DigitalOut( 51 ), 0);
-	CLed5.setHardware(new Proto8DigitalOut( 52 ), 0);
-	CLed6.setHardware(new Proto8DigitalOut( 53 ), 0);
-	CLed7.setHardware(new Proto8DigitalOut( 54 ), 0);
-	CLed8.setHardware(new Proto8DigitalOut( 55 ), 0);
+	CLed1.setHardware(new Proto8DigitalOut( 49 ), 0);
+	CLed2.setHardware(new Proto8DigitalOut( 50 ), 0);
+	CLed3.setHardware(new Proto8DigitalOut( 51 ), 0);
+	CLed4.setHardware(new Proto8DigitalOut( 52 ), 0);
+	CLed5.setHardware(new Proto8DigitalOut( 53 ), 0);
+	CLed6.setHardware(new Proto8DigitalOut( 54 ), 0);
+	CLed7.setHardware(new Proto8DigitalOut( 55 ), 0);
+	CLed8.setHardware(new Proto8DigitalOut( 56 ), 0);
+	CLed9.setHardware(new Proto8DigitalOut( 57 ), 0);
+	CLed10.setHardware(new Proto8DigitalOut( 58 ), 0);
+	CLed11.setHardware(new Proto8DigitalOut( 59 ), 0);
+	CLed12.setHardware(new Proto8DigitalOut( 60 ), 0);
+	CLed13.setHardware(new Proto8DigitalOut( 61 ), 0);
+	CLed14.setHardware(new Proto8DigitalOut( 62 ), 0);
+	CLed15.setHardware(new Proto8DigitalOut( 63 ), 0);
+	CLed16.setHardware(new Proto8DigitalOut( 64 ), 0);
 
 	add( &CLed1 );
 	add( &CLed2 );
@@ -181,6 +253,14 @@ KnobPanel::KnobPanel( void )
 	add( &CLed6 );
 	add( &CLed7 );
 	add( &CLed8 );
+	add( &CLed9 );
+	add( &CLed10 );
+	add( &CLed11 );
+	add( &CLed12 );
+	add( &CLed13 );
+	add( &CLed14 );
+	add( &CLed15 );
+	add( &CLed16 );
 
 	state = PInit;
 }
@@ -204,10 +284,11 @@ void KnobPanel::tickStateMachine( int msTicksDelta )
 		nextState = PRun;
 		break;
 	case PRun:
-		if( A1Knob.serviceChanged() )
+		if( A1Knob.serviceChanged() )  // Master Volume
 		{
 			Serial.print("knob A-1: ");
 			Serial.println(A1Knob.getState());
+			sgtl5000_1.volume((float)A1Knob.getState()/1024);
 		}
 
 		if( B1Knob.serviceChanged() )

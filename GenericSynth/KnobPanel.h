@@ -37,14 +37,26 @@ private:
 	Simple10BitKnob B3Knob;
 	Simple10BitKnob B4Knob;
 	Simple10BitKnob B5Knob;
+	Simple10BitKnob B6Knob;
 	
 	Simple10BitKnob C1Knob;
 	Simple10BitKnob C2Knob;
 	Simple10BitKnob C3Knob;
 	Simple10BitKnob C4Knob;
 	Simple10BitKnob C5Knob;
-	
-	Button A1Button;
+	Simple10BitKnob C6Knob;
+
+	Simple10BitKnob D1Knob;
+	Simple10BitKnob D2Knob;
+	Simple10BitKnob D3Knob;
+	Simple10BitKnob D4Knob;
+	Simple10BitKnob D5Knob;
+	Simple10BitKnob D6Knob;
+ 
+	Simple10BitKnob Ext1;
+    Simple10BitKnob Ext2;
+  
+  Button A1Button;
 	Button A2Button;
 	Button A3Button;
 	Button A4Button;
@@ -89,6 +101,14 @@ private:
 	Led ALed6;
 	Led ALed7;
 	Led ALed8;
+	Led ALed9;
+	Led ALed10;
+	Led ALed11;
+	Led ALed12;
+	Led ALed13;
+	Led ALed14;
+	Led ALed15;
+	Led ALed16;
 
 	Led BLed1;
 	Led BLed2;
@@ -98,6 +118,14 @@ private:
 	Led BLed6;
 	Led BLed7;
 	Led BLed8;
+	Led BLed9;
+	Led BLed10;
+	Led BLed11;
+	Led BLed12;
+	Led BLed13;
+	Led BLed14;
+	Led BLed15;
+	Led BLed16;
 
 	Led CLed1;
 	Led CLed2;
@@ -107,6 +135,14 @@ private:
 	Led CLed6;
 	Led CLed7;
 	Led CLed8;
+	Led CLed9;
+	Led CLed10;
+	Led CLed11;
+	Led CLed12;
+	Led CLed13;
+	Led CLed14;
+	Led CLed15;
+	Led CLed16;
 
 	//State machine stuff  
 	PStates state;
