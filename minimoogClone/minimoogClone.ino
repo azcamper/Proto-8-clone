@@ -22,6 +22,7 @@ uint32_t maxInterval = 2000000;
 #include "PanelComponents.h"
 #include "KnobPanel.h"
 #include "proto-8Hardware.h"
+#include "HardwareInterfaces.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -47,6 +48,7 @@ IntervalTimer myTimer; //Interrupt for Teensy
 
 //**Current list of timers********************//
 
+TimerClass32 midiRecordTimer( 1000 );
 TimerClass32 debugTimer( 1000000 ); //1 second
 TimerClass32 serialTimer( 500000 ); // 0.5 seconds
 TimerClass32 panelTimer( 5000 ); //5ms
@@ -55,6 +57,10 @@ TimerClass32 panelTimer( 5000 ); //5ms
 TimerClass32 LEDsTimer( 20 ); // 20 uS
 TimerClass32 switchesTimer( 500 ); // 500 uS
 TimerClass32 knobsTimer( 500 ); // 500 uS
+
+// MIDI things
+#include <MIDI.h>
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, midiA);
 
 //components
 
@@ -97,6 +103,18 @@ void setup()
   LEDs.begin();
   knobs.begin();
   switches.begin();
+  
+//  pinMode(11, OUTPUT); 
+	midiA.turnThruOn(); 
+	midiA.setHandleNoteOn(handleNoteOn);  // Put only the name of the function 
+	midiA.setHandleNoteOff(handleNoteOff); 
+//	midiA.setHandlePitchBend(handlePitchBend); 
+//	midiA.setHandleControlChange(handleControlChange); 
+	 
+	// Initiate MIDI communications, listen to all channels 
+	midiA.begin(MIDI_CHANNEL_OMNI); 
+	Serial.println("Starting program"); 
+
 
 }
 
@@ -151,6 +169,7 @@ void loop()
     {
 		knobs.scan();
     }
+	    midiA.read();
    
 }
 
@@ -168,3 +187,29 @@ void serviceUS(void)
   usTicks = returnVar;
   usTicksLocked = 0;  //unlock
 }
+
+void handleNoteOn(byte channel, byte pitch, byte velocity) 
+{ 
+	Serial.print("Note On :"); 
+	Serial.print("0x"); 
+	Serial.print(channel, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(pitch, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(velocity, HEX); 
+	Serial.print("\n"); 
+	CLed16.setState(LEDON);
+} 
+
+void handleNoteOff(byte channel, byte pitch, byte velocity) 
+{ 
+	Serial.print("Note Off:"); 
+	Serial.print("0x"); 
+	Serial.print(channel, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(pitch, HEX); 
+	Serial.print(" 0x"); 
+	Serial.print(velocity, HEX); 
+	Serial.print("\n");
+	CLed16.setState(LEDOFF);	
+} 
