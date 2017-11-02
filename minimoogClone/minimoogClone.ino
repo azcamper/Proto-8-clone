@@ -102,7 +102,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
 	Serial.print(" 0x"); 
 	Serial.print(velocity, HEX); 
 	Serial.print("\n"); 
-	myCustomPanel.CLed16.setState(LEDON);
+	myCustomPanel.DLed16.setState(LEDON);
 } 
 
 void handleNoteOff(byte channel, byte pitch, byte velocity) 
@@ -115,7 +115,7 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 	Serial.print(" 0x"); 
 	Serial.print(velocity, HEX); 
 	Serial.print("\n");
-  myCustomPanel.CLed16.setState(LEDOFF);	
+  myCustomPanel.DLed16.setState(LEDOFF);	
 } 
 
 void setup()

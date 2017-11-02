@@ -54,9 +54,9 @@ private:
 	Simple10BitKnob D6Knob;
  
 	Simple10BitKnob Ext1;
-  Simple10BitKnob Ext2;
+	Simple10BitKnob Ext2;
   
-  Button A1Button;
+	Button A1Button;
 	Button A2Button;
 	Button A3Button;
 	Button A4Button;
@@ -126,24 +126,26 @@ private:
 	Led BLed14;
 	Led BLed15;
 	Led BLed16;
+	
+// CLeds are not implemented in this design
 
-	Led CLed1;
-	Led CLed2;
-	Led CLed3;
-	Led CLed4;
-	Led CLed5;
-	Led CLed6;
-	Led CLed7;
-	Led CLed8;
-	Led CLed9;
-	Led CLed10;
-	Led CLed11;
-	Led CLed12;
-	Led CLed13;
-	Led CLed14;
-	Led CLed15;
+	Led DLed1;
+	Led DLed2;
+	Led DLed3;
+	Led DLed4;
+	Led DLed5;
+	Led DLed6;
+	Led DLed7;
+	Led DLed8;
+	Led DLed9;
+	Led DLed10;
+	Led DLed11;
+	Led DLed12;
+	Led DLed13;
+	Led DLed14;
+	Led DLed15;
 public:	
-	Led CLed16;
+	Led DLed16;
 
 	//State machine stuff  
 	PStates state;
